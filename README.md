@@ -6,6 +6,6 @@ Group i
 Members:
 Ella Thomson
 Theo Musa
-Jonathon Love
-Rhys spears
+Jonathan Love
+Rhys Speers
 Bryn Elliott
