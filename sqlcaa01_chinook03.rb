@@ -39,7 +39,7 @@ SQLA[2] = '[["Staff ID", "First Name", "Last Name"], [1, "Andrew", "Adams"], [2,
 SQLQ[3] = ""
 SQLA[3] = '[["LastName", "FirstName"], ["Edwards", "Nancy"]]'
 # display all data for employees whose last name begins with ‘P’
-SQLQ[4] = ""
+SQLQ[4] = "SELECT * FROM 'employees' WHERE LastName LIKE 'P%';"
 SQLA[4] = '[["EmployeeId", "LastName", "FirstName", "Title", "ReportsTo", "BirthDate", "HireDate", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email"], [3, "Peacock", "Jane", "Sales Support Agent", 2, "1973-08-29 00:00:00", "2002-04-01 00:00:00", "1111 6 Ave SW", "Calgary", "AB", "Canada", "T2P 5M5", "+1 (403) 262-3443", "+1 (403) 262-6712", "jane@chinookcorp.com"], [4, "Park", "Margaret", "Sales Support Agent", 2, "1947-09-19 00:00:00", "2003-05-03 00:00:00", "683 10 Street SW", "Calgary", "AB", "Canada", "T2P 5G3", "+1 (403) 263-4423", "+1 (403) 263-4289", "margaret@chinookcorp.com"]]'
 # display all invoice and customer details for invoice id 1
 SQLQ[5] = ""
@@ -54,7 +54,7 @@ SQLA[7] = '[["InvoiceId", "FirstName", "LastName", "FirstName", "LastName"], [1,
 SQLQ[8] = ''
 SQLA[8] = '[["InvoiceId", "FirstName", "LastName", "Support Contact"], [1, "Leonie", "K\u00F6hler", "Steve Johnson"]]'
 # display German customers first name, last name and country along with the merged name as one column named “Support Contact” who are supported by employee “Johnson” not using the JOIN keyword
-SQLQ[9] = ''
+SQLQ[9] = "SELECT customers.FirstName, customers.LastName, customers.Country, (employees.FirstName || ' ' || employees.LastName) AS 'Support Contact' FROM 'customers', 'employees' WHERE customers.Country = 'Germany' AND SupportRepID = (SELECT EmployeeID FROM employees WHERE LastName = 'Johnson') AND SupportRepID = EmployeeID;"
 SQLA[9] = '[["FirstName", "LastName", "Country", "Support Contact"], ["Leonie", "K\u00F6hler", "Germany", "Steve Johnson"], ["Hannah", "Schneider", "Germany", "Steve Johnson"]]'
 # display employee first and last name along with the number of customers they support for employee id 5, not using the JOIN keyword, and using the table alias e for employees and c for customers
 SQLQ[10] = ""
@@ -69,7 +69,7 @@ SQLA[12] = '[["Country", "count (*)"], ["Canada", 8], ["Germany", 4]]'
 SQLQ[13] = ""
 SQLA[13] = '[["CustomerId", "Total Spent"], [37, 0.99], [2, 1.98], [38, 1.98], [40, 1.98], [4, 3.96], [42, 3.96], [8, 5.94], [14, 8.91], [23, 13.86]]'
 # display customers ids along with their total spend for tracks in descending order spent for the invoices greater or equal to £45.
-SQLQ[14] = ""
+SQLQ[14] = "SELECT CustomerID, t AS 'Total Spent' FROM (SELECT CustomerID, SUM(Total) AS t FROM 'invoices' GROUP BY CustomerID) WHERE t > 45 ORDER BY t DESC;"
 SQLA[14] = '[["CustomerId", "Total Spent"], [6, 49.620000000000005], [26, 47.620000000000005], [57, 46.62], [45, 45.62], [46, 45.62]]'
 # display last and first names, job title and date hired of employees hired after 2003 
 SQLQ[15] = ""
@@ -84,7 +84,7 @@ SQLA[17] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Ma
 SQLQ[18] = ""
 SQLA[18] = '[["Customers Reporting to Managers"], [0]]'
 # display employees last name, first name and job title who have employees who report to them who themselves have other employees who report to them. 
-SQLQ[19] = ""
+SQLQ[19] = "SELECT e.LastName, e.FirstName, e.Title FROM 'employees' AS e, (SELECT * FROM 'employees', (SELECT ReportsTo FROM 'employees' WHERE ReportsTo != 'null') AS y WHERE EmployeeId = y.ReportsTo GROUP BY EmployeeId) AS t WHERE e.EmployeeId = t.ReportsTo GROUP BY e.EmployeeId;"
 SQLA[19] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"]]'
 # display the last name, first name and title of employees who do not report to another employee
 SQLQ[20] = ""
@@ -99,7 +99,7 @@ SQLA[22] = '[["AlbumId", "Title"], [1, "For Those About To Rock We Salute You"],
 SQLQ[23] = ""
 SQLA[23] = '[["InvoiceId", "CustomerId", "priceDiff"], [96, 45, 16.208058252427175], [194, 46, 16.208058252427175], [299, 26, 18.208058252427175], [404, 6, 20.208058252427175]]'
 # display employees id first name, last name and title who support companies sorted by lastname and using the reserve EXIST word
-SQLQ[24] = ""
+SQLQ[24] = "SELECT EmployeeId, FirstName, LastName, Title FROM 'employees' WHERE EXISTS(SELECT SupportRepID FROM 'customers' WHERE Company != 'null' AND employees.EmployeeId = customers.SupportRepId GROUP BY SupportRepID) ORDER BY LastName;"
 SQLA[24] = '[["EmployeeId", "FirstName", "LastName", "Title"], [5, "Steve", "Johnson", "Sales Support Agent"], [4, "Margaret", "Park", "Sales Support Agent"], [3, "Jane", "Peacock", "Sales Support Agent"]]'
 # display tracks which exist on a Grunge playlist but no invoice using reserve EXCEPT word
 SQLQ[25] = ""
