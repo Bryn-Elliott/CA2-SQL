@@ -27,7 +27,7 @@ correct = 0
 #SQLA[] = ''
 
 # display all data for all users
-SQLQ[0] = ""
+SQLQ[0] = "SELECT * FROM employees;"
 SQLA[0] ='[["EmployeeId", "LastName", "FirstName", "Title", "ReportsTo", "BirthDate", "HireDate", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email"], [1, "Adams", "Andrew", "General Manager", nil, "1962-02-18 00:00:00", "2002-08-14 00:00:00", "11120 Jasper Ave NW", "Edmonton", "AB", "Canada", "T5K 2N1", "+1 (780) 428-9482", "+1 (780) 428-3457", "andrew@chinookcorp.com"], [2, "Edwards", "Nancy", "Sales Manager", 1, "1958-12-08 00:00:00", "2002-05-01 00:00:00", "825 8 Ave SW", "Calgary", "AB", "Canada", "T2P 2T3", "+1 (403) 262-3443", "+1 (403) 262-3322", "nancy@chinookcorp.com"], [3, "Peacock", "Jane", "Sales Support Agent", 2, "1973-08-29 00:00:00", "2002-04-01 00:00:00", "1111 6 Ave SW", "Calgary", "AB", "Canada", "T2P 5M5", "+1 (403) 262-3443", "+1 (403) 262-6712", "jane@chinookcorp.com"], [4, "Park", "Margaret", "Sales Support Agent", 2, "1947-09-19 00:00:00", "2003-05-03 00:00:00", "683 10 Street SW", "Calgary", "AB", "Canada", "T2P 5G3", "+1 (403) 263-4423", "+1 (403) 263-4289", "margaret@chinookcorp.com"], [5, "Johnson", "Steve", "Sales Support Agent", 2, "1965-03-03 00:00:00", "2003-10-17 00:00:00", "7727B 41 Ave", "Calgary", "AB", "Canada", "T3B 1Y7", "1 (780) 836-9987", "1 (780) 836-9543", "steve@chinookcorp.com"], [6, "Mitchell", "Michael", "IT Manager", 1, "1973-07-01 00:00:00", "2003-10-17 00:00:00", "5827 Bowness Road NW", "Calgary", "AB", "Canada", "T3B 0C5", "+1 (403) 246-9887", "+1 (403) 246-9899", "michael@chinookcorp.com"], [7, "King", "Robert", "IT Staff", 6, "1970-05-29 00:00:00", "2004-01-02 00:00:00", "590 Columbia Boulevard West", "Lethbridge", "AB", "Canada", "T1K 5N8", "+1 (403) 456-9986", "+1 (403) 456-8485", "robert@chinookcorp.com"], [8, "Callahan", "Laura", "IT Staff", 6, "1968-01-09 00:00:00", "2004-03-04 00:00:00", "923 7 ST NW", "Lethbridge", "AB", "Canada", "T1H 1Y8", "+1 (403) 467-3351", "+1 (403) 467-8772", "laura@chinookcorp.com"]]'
 # display last name and first name data for all employees  
 SQLQ[1] = ""
@@ -42,7 +42,7 @@ SQLA[3] = '[["LastName", "FirstName"], ["Edwards", "Nancy"]]'
 SQLQ[4] = ""
 SQLA[4] = '[["EmployeeId", "LastName", "FirstName", "Title", "ReportsTo", "BirthDate", "HireDate", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email"], [3, "Peacock", "Jane", "Sales Support Agent", 2, "1973-08-29 00:00:00", "2002-04-01 00:00:00", "1111 6 Ave SW", "Calgary", "AB", "Canada", "T2P 5M5", "+1 (403) 262-3443", "+1 (403) 262-6712", "jane@chinookcorp.com"], [4, "Park", "Margaret", "Sales Support Agent", 2, "1947-09-19 00:00:00", "2003-05-03 00:00:00", "683 10 Street SW", "Calgary", "AB", "Canada", "T2P 5G3", "+1 (403) 263-4423", "+1 (403) 263-4289", "margaret@chinookcorp.com"]]'
 # display all invoice and customer details for invoice id 1
-SQLQ[5] = ""
+SQLQ[5] = "SELECT * FROM invoices, customers WHERE InvoiceId = 1 AND customers.CustomerID =invoices.CustomerID;"
 SQLA[5] = '[["InvoiceId", "CustomerId", "InvoiceDate", "BillingAddress", "BillingCity", "BillingState", "BillingCountry", "BillingPostalCode", "Total", "CustomerId", "FirstName", "LastName", "Company", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email", "SupportRepId"], [1, 2, "2009-01-01 00:00:00", "Theodor-Heuss-Stra\u00DFe 34", "Stuttgart", nil, "Germany", "70174", 1.98, 2, "Leonie", "K\u00F6hler", nil, "Theodor-Heuss-Stra\u00DFe 34", "Stuttgart", nil, "Germany", "70174", "+49 0711 2842222", nil, "leonekohler@surfeu.de", 5]]'
 # display invoice id, customer first name and last  name and total details for invoice id 1 and not using the JOIN keyword
 SQLQ[6] = ""
@@ -57,7 +57,7 @@ SQLA[8] = '[["InvoiceId", "FirstName", "LastName", "Support Contact"], [1, "Leon
 SQLQ[9] = ''
 SQLA[9] = '[["FirstName", "LastName", "Country", "Support Contact"], ["Leonie", "K\u00F6hler", "Germany", "Steve Johnson"], ["Hannah", "Schneider", "Germany", "Steve Johnson"]]'
 # display employee first and last name along with the number of customers they support for employee id 5, not using the JOIN keyword, and using the table alias e for employees and c for customers
-SQLQ[10] = ""
+SQLQ[10] = "SELECT e.FirstName, e.LastName, COUNT(*) FROM employees e, customers c WHERE c.SupportRepId = 5 AND c.SupportRepId = e.EmployeeId;"
 SQLA[10] = '[["FirstName", "LastName", "COUNT(*)"], ["Steve", "Johnson", 18]]'
 # display German customers last name and first name in descending order
 SQLQ[11] = ""
@@ -72,7 +72,7 @@ SQLA[13] = '[["CustomerId", "Total Spent"], [37, 0.99], [2, 1.98], [38, 1.98], [
 SQLQ[14] = ""
 SQLA[14] = '[["CustomerId", "Total Spent"], [6, 49.620000000000005], [26, 47.620000000000005], [57, 46.62], [45, 45.62], [46, 45.62]]'
 # display last and first names, job title and date hired of employees hired after 2003 
-SQLQ[15] = ""
+SQLQ[15] = "SELECT LastName, FirstName, Title, STRFTIME('%d/%m/%Y', HireDate) AS Date FROM employees WHERE HireDate > '2003-12-31';"
 SQLA[15] = '[["LastName", "FirstName", "Title", "Date"], ["King", "Robert", "IT Staff", "02/01/2004"], ["Callahan", "Laura", "IT Staff", "04/03/2004"]]'
 # display last and first names, job title and date hired of employees hired during 2002; 
 SQLQ[16] = ""
@@ -87,7 +87,7 @@ SQLA[18] = '[["Customers Reporting to Managers"], [0]]'
 SQLQ[19] = ""
 SQLA[19] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"]]'
 # display the last name, first name and title of employees who do not report to another employee
-SQLQ[20] = ""
+SQLQ[20] = "SELECT LastName, FirstName, Title FROM employees WHERE ReportsTo IS null;"
 SQLA[20] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"]]'
 # display artist id, their name and their number of albums if produced more than 10.
 SQLQ[21] = ""
@@ -102,7 +102,7 @@ SQLA[23] = '[["InvoiceId", "CustomerId", "priceDiff"], [96, 45, 16.2080582524271
 SQLQ[24] = ""
 SQLA[24] = '[["EmployeeId", "FirstName", "LastName", "Title"], [5, "Steve", "Johnson", "Sales Support Agent"], [4, "Margaret", "Park", "Sales Support Agent"], [3, "Jane", "Peacock", "Sales Support Agent"]]'
 # display tracks which exist on a Grunge playlist but no invoice using reserve EXCEPT word
-SQLQ[25] = ""
+SQLQ[25] = "SELECT TrackId FROM 'playlist_track' WHERE PlaylistId = (SELECT PlaylistId FROM 'playlists' WHERE Name = 'Grunge') EXCEPT SELECT TrackId FROM 'invoice_items'"
 SQLA[25] = '[["TrackId"], [52], [2005], [2007], [2010], [2194], [2198], [2206], [3367]]'
 # display playlist id, track id and track name of playlists which contain  only one track
 SQLQ[26] = ""
@@ -111,7 +111,7 @@ SQLA[26] = '[["PlaylistId", "TrackId", "Name"], [9, 3402, "Band Members Discuss 
 SQLQ[27] = ""
 SQLA[27] = '[["ArtistId", "Name", "count(a.AlbumId)", "Name"], [116, "Passengers", 14, "Soundtrack"], [275, "Philip Glass Ensemble", 1, "Soundtrack"]]'
 
-
+#SELECT LastName, FirstName, Title, HireDate AS Date FROM employees WHERE HireDate > '2003-12-31'
 db = SQLite3::Database.new(DbName)
 db.results_as_hash = false
 sqlnum = 0
