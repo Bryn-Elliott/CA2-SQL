@@ -36,7 +36,7 @@ SQLA[1] = '[["LastName", "FirstName"], ["Adams", "Andrew"], ["Edwards", "Nancy"]
 SQLQ[2] = ""
 SQLA[2] = '[["Staff ID", "First Name", "Last Name"], [1, "Andrew", "Adams"], [2, "Nancy", "Edwards"], [3, "Jane", "Peacock"], [4, "Margaret", "Park"], [5, "Steve", "Johnson"], [6, "Michael", "Mitchell"], [7, "Robert", "King"], [8, "Laura", "Callahan"]]'
 # display  LastName and FirstName data for employee with id = 2
-SQLQ[3] = ""
+SQLQ[3] = "SELECT LastName, FirstName FROM employees WHERE EmployeeId = 2;"
 SQLA[3] = '[["LastName", "FirstName"], ["Edwards", "Nancy"]]'
 # display all data for employees whose last name begins with ‘P’
 SQLQ[4] = ""
@@ -51,7 +51,7 @@ SQLA[6] = '[["InvoiceId", "FirstName", "LastName", "Total"], [1, "Leonie", "K\u0
 SQLQ[7] = ""
 SQLA[7] = '[["InvoiceId", "FirstName", "LastName", "FirstName", "LastName"], [1, "Leonie", "K\u00F6hler", "Steve", "Johnson"]]'
 # display invoice id, customer first name and last  name and merge the name of the support representative as one column named “Support Contact” for invoice id 1 and not using the JOIN keyword
-SQLQ[8] = ''
+SQLQ[8] = 'SELECT i.InvoiceId, c.FirstName, c.LastName, (e.FirstName || " " || e.LastName) AS "Support Contact" FROM customers as c, invoices as i, employees as e WHERE c.CustomerId = i.CustomerId AND i.InvoiceId = 1 AND c.SupportRepId = e.EmployeeId'
 SQLA[8] = '[["InvoiceId", "FirstName", "LastName", "Support Contact"], [1, "Leonie", "K\u00F6hler", "Steve Johnson"]]'
 # display German customers first name, last name and country along with the merged name as one column named “Support Contact” who are supported by employee “Johnson” not using the JOIN keyword
 SQLQ[9] = ''
@@ -66,7 +66,7 @@ SQLA[11] = '[["LastName", "FirstName"], ["Zimmermann", "Fynn"], ["Schr\u00F6der"
 SQLQ[12] = ""
 SQLA[12] = '[["Country", "count (*)"], ["Canada", 8], ["Germany", 4]]'
 # display  customers ids along with their total spend for tracks in ascending order spent for the first 9 invoices
-SQLQ[13] = ""
+SQLQ[13] = "SELECT c.CustomerId, i.total AS 'Total Spent' FROM customers as c , invoices as i WHERE c.CustomerId = i.CustomerId AND i.InvoiceId < 10 ORDER BY i.total ASC, i.InvoiceId ASC"
 SQLA[13] = '[["CustomerId", "Total Spent"], [37, 0.99], [2, 1.98], [38, 1.98], [40, 1.98], [4, 3.96], [42, 3.96], [8, 5.94], [14, 8.91], [23, 13.86]]'
 # display customers ids along with their total spend for tracks in descending order spent for the invoices greater or equal to £45.
 SQLQ[14] = ""
@@ -81,7 +81,7 @@ SQLA[16] = '[["LastName", "FirstName", "Title", "Date"], ["Adams", "Andrew", "Ge
 SQLQ[17] = ""
 SQLA[17] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"], ["Edwards", "Nancy", "Sales Manager"], ["Mitchell", "Michael", "IT Manager"]]'
 # display a column called ‘'Customers Reporting to Managers’ containing the number of employees who have other employees reporting to them and who also have customers to support  
-SQLQ[18] = ""
+SQLQ[18] = "SELECT COUNT(c.CustomerId) AS 'Customers Reporting to Managers' FROM customers AS c, employees AS e WHERE c.SupportRepId = e.EmployeeId AND e.ReportsTo = e.EmployeeId"
 SQLA[18] = '[["Customers Reporting to Managers"], [0]]'
 # display employees last name, first name and job title who have employees who report to them who themselves have other employees who report to them. 
 SQLQ[19] = ""
@@ -96,7 +96,7 @@ SQLA[21] = '[["ArtistId", "Name", "Number of Albums"], [22, "Led Zeppelin", 14],
 SQLQ[22] = ""
 SQLA[22] = '[["AlbumId", "Title"], [1, "For Those About To Rock We Salute You"], [4, "Let There Be Rock"]]'
 # display all invoice id, customer id whose total invoice is greater than the average price, and show by how much their price is greater than average where prices differ by more than £15.
-SQLQ[23] = ""
+SQLQ[23] = "SELECT invoiceId, customerId, Total - (SELECT AVG(Total) FROM 'invoices') AS priceDiff FROM 'invoices' WHERE Total > (SELECT AVG(Total) FROM 'invoices') AND Total - (SELECT AVG(Total) FROM 'invoices') > 15"
 SQLA[23] = '[["InvoiceId", "CustomerId", "priceDiff"], [96, 45, 16.208058252427175], [194, 46, 16.208058252427175], [299, 26, 18.208058252427175], [404, 6, 20.208058252427175]]'
 # display employees id first name, last name and title who support companies sorted by lastname and using the reserve EXIST word
 SQLQ[24] = ""
