@@ -88,7 +88,6 @@ SQLQ[19] = "SELECT e.LastName, e.FirstName, e.Title FROM 'employees' AS e, (SELE
 SQLA[19] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"]]'
 # display the last name, first name and title of employees who do not report to another employee
 SQLQ[20] = "SELECT LastName, FirstName, Title FROM employees WHERE ReportsTo IS null;"
->>>>>>> main
 SQLA[20] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"]]'
 # display artist id, their name and their number of albums if produced more than 10.
 SQLQ[21] = ""
@@ -104,7 +103,6 @@ SQLQ[24] = "SELECT EmployeeId, FirstName, LastName, Title FROM 'employees' WHERE
 SQLA[24] = '[["EmployeeId", "FirstName", "LastName", "Title"], [5, "Steve", "Johnson", "Sales Support Agent"], [4, "Margaret", "Park", "Sales Support Agent"], [3, "Jane", "Peacock", "Sales Support Agent"]]'
 # display tracks which exist on a Grunge playlist but no invoice using reserve EXCEPT word
 SQLQ[25] = "SELECT TrackId FROM 'playlist_track' WHERE PlaylistId = (SELECT PlaylistId FROM 'playlists' WHERE Name = 'Grunge') EXCEPT SELECT TrackId FROM 'invoice_items'"
->>>>>>> main
 SQLA[25] = '[["TrackId"], [52], [2005], [2007], [2010], [2194], [2198], [2206], [3367]]'
 # display playlist id, track id and track name of playlists which contain  only one track
 SQLQ[26] = ""
