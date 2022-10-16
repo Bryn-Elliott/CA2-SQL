@@ -66,7 +66,7 @@ SQLQ[11] = "SELECT DISTINCT customers.LastName, customers.FirstName FROM custome
 			ORDER BY customers.LastName DESC"
 SQLA[11] = '[["LastName", "FirstName"], ["Zimmermann", "Fynn"], ["Schr\u00F6der", "Niklas"], ["Schneider", "Hannah"], ["K\u00F6hler", "Leonie"]]'
 # display name of country and number of customers who are either German or Canadian in ascending order 
-SQLQ[12] = "SELECT Country, COUNT(Country) FROM customers WHERE country IN ('Argentina', 'Germany') GROUP BY Country  ORDER BY Country ASC;"
+SQLQ[12] = "SELECT Country, count (*) FROM customers WHERE country IN ('Canada', 'Germany') GROUP BY Country  ORDER BY Country ASC;"
 SQLA[12] = '[["Country", "count (*)"], ["Canada", 8], ["Germany", 4]]'
 # display  customers ids along with their total spend for tracks in ascending order spent for the first 9 invoices
 SQLQ[13] = "SELECT c.CustomerId, i.total AS 'Total Spent' FROM customers as c , invoices as i WHERE c.CustomerId = i.CustomerId AND i.InvoiceId < 10 ORDER BY i.total ASC, i.InvoiceId ASC"
@@ -83,7 +83,7 @@ SQLQ[16] = "SELECT DISTINCT LastName, FirstName, Title,
 			WHERE HireDate LIKE '%2002%'"
 SQLA[16] = '[["LastName", "FirstName", "Title", "Date"], ["Adams", "Andrew", "General Manager", "14/08/2002"], ["Edwards", "Nancy", "Sales Manager", "01/05/2002"], ["Peacock", "Jane", "Sales Support Agent", "01/04/2002"]]'
 # display employee first, last names and job title who have other employees reporting to them 
-SQLQ[17] = "SELECT FirstName, LastName, Title FROM employees WHERE (EmployeeId IN (SELECT ReportsTo FROM employees));"
+SQLQ[17] = "SELECT LastName, FirstName, Title FROM employees WHERE (EmployeeId IN (SELECT ReportsTo FROM employees));"
 SQLA[17] = '[["LastName", "FirstName", "Title"], ["Adams", "Andrew", "General Manager"], ["Edwards", "Nancy", "Sales Manager"], ["Mitchell", "Michael", "IT Manager"]]'
 # display a column called ‘'Customers Reporting to Managers’ containing the number of employees who have other employees reporting to them and who also have customers to support  
 SQLQ[18] = "SELECT COUNT(c.CustomerId) AS 'Customers Reporting to Managers' FROM customers AS c, employees AS e WHERE c.SupportRepId = e.EmployeeId AND e.ReportsTo = e.EmployeeId"
@@ -142,4 +142,3 @@ for i in 0..sqlnum-1 do
 		puts "No match exists between expected SQLData and actual database data."
 	end
 end
-puts "Result: #{correct} out of #{sqlnum} correct."
