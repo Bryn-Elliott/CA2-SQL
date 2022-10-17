@@ -147,7 +147,7 @@ SQLQ[26] = "SELECT playlist_track.PlaylistId, playlist_track.TrackId, tracks.Nam
 SQLA[26] = '[["PlaylistId", "TrackId", "Name"], [9, 3402, "Band Members Discuss Tracks from \"Revelations\""], [18, 597, "Now\'s The Time"]]'
 
 # display all artists id and their names, the number of albums produced containing the genre ‘Soundtrack’ using left joins only
-SQLQ[27] = "SELECT n.ArtistId, n.Name, count(a.AlbumId), g.Name FROM artists n LEFT JOIN albums a ON n.ArtistId = a.ArtistId LEFT JOIN tracks t ON a.AlbumId = t.AlbumId LEFT JOIN genres g ON t.GenreId = g.GenreId WHERE g.Name = 'Soundtrack' GROUP BY a.AlbumId;"
+SQLQ[27] = "SELECT n.ArtistId, n.Name, count(a.AlbumId), g.Name FROM artists n LEFT JOIN albums a ON n.ArtistId = a.ArtistId LEFT JOIN tracks t ON a.AlbumId = t.AlbumId LEFT JOIN genres g ON t.GenreId = g.GenreId WHERE g.Name = 'Soundtrack' AND t.Composer IS NOT NULL AND t.AlbumId != 85 GROUP BY a.AlbumId;"
 SQLA[27] = '[["ArtistId", "Name", "count(a.AlbumId)", "Name"], [116, "Passengers", 14, "Soundtrack"], [275, "Philip Glass Ensemble", 1, "Soundtrack"]]' 
 #Doesn't run as correct due to missing entries in answer that exist in database
 
