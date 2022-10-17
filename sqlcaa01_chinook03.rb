@@ -31,7 +31,7 @@ SQLQ[0] = "SELECT * FROM employees;"
 SQLA[0] ='[["EmployeeId", "LastName", "FirstName", "Title", "ReportsTo", "BirthDate", "HireDate", "Address", "City", "State", "Country", "PostalCode", "Phone", "Fax", "Email"], [1, "Adams", "Andrew", "General Manager", nil, "1962-02-18 00:00:00", "2002-08-14 00:00:00", "11120 Jasper Ave NW", "Edmonton", "AB", "Canada", "T5K 2N1", "+1 (780) 428-9482", "+1 (780) 428-3457", "andrew@chinookcorp.com"], [2, "Edwards", "Nancy", "Sales Manager", 1, "1958-12-08 00:00:00", "2002-05-01 00:00:00", "825 8 Ave SW", "Calgary", "AB", "Canada", "T2P 2T3", "+1 (403) 262-3443", "+1 (403) 262-3322", "nancy@chinookcorp.com"], [3, "Peacock", "Jane", "Sales Support Agent", 2, "1973-08-29 00:00:00", "2002-04-01 00:00:00", "1111 6 Ave SW", "Calgary", "AB", "Canada", "T2P 5M5", "+1 (403) 262-3443", "+1 (403) 262-6712", "jane@chinookcorp.com"], [4, "Park", "Margaret", "Sales Support Agent", 2, "1947-09-19 00:00:00", "2003-05-03 00:00:00", "683 10 Street SW", "Calgary", "AB", "Canada", "T2P 5G3", "+1 (403) 263-4423", "+1 (403) 263-4289", "margaret@chinookcorp.com"], [5, "Johnson", "Steve", "Sales Support Agent", 2, "1965-03-03 00:00:00", "2003-10-17 00:00:00", "7727B 41 Ave", "Calgary", "AB", "Canada", "T3B 1Y7", "1 (780) 836-9987", "1 (780) 836-9543", "steve@chinookcorp.com"], [6, "Mitchell", "Michael", "IT Manager", 1, "1973-07-01 00:00:00", "2003-10-17 00:00:00", "5827 Bowness Road NW", "Calgary", "AB", "Canada", "T3B 0C5", "+1 (403) 246-9887", "+1 (403) 246-9899", "michael@chinookcorp.com"], [7, "King", "Robert", "IT Staff", 6, "1970-05-29 00:00:00", "2004-01-02 00:00:00", "590 Columbia Boulevard West", "Lethbridge", "AB", "Canada", "T1K 5N8", "+1 (403) 456-9986", "+1 (403) 456-8485", "robert@chinookcorp.com"], [8, "Callahan", "Laura", "IT Staff", 6, "1968-01-09 00:00:00", "2004-03-04 00:00:00", "923 7 ST NW", "Lethbridge", "AB", "Canada", "T1H 1Y8", "+1 (403) 467-3351", "+1 (403) 467-8772", "laura@chinookcorp.com"]]'
 
 # display last name and first name data for all employees  
-SQLQ[1] = "SELECT DISTINCT LastName, FirstName FROM employees"
+SQLQ[1] = "SELECT DISTINCT LastName, FirstName FROM employees;"
 SQLA[1] = '[["LastName", "FirstName"], ["Adams", "Andrew"], ["Edwards", "Nancy"], ["Peacock", "Jane"], ["Park", "Margaret"], ["Johnson", "Steve"], ["Mitchell", "Michael"], ["King", "Robert"], ["Callahan", "Laura"]]'
 
 # display employee id, last name and first name data for all employees and rename columns (EmployeeId renamed Staff ID,  FirstName renamed First Name and LastName renamed Last Name) 
@@ -52,7 +52,7 @@ SQLA[5] = '[["InvoiceId", "CustomerId", "InvoiceDate", "BillingAddress", "Billin
 
 # display invoice id, customer first name and last  name and total details for invoice id 1 and not using the JOIN keyword
 SQLQ[6] = "SELECT DISTINCT InvoiceId, FirstName, LastName, Total FROM invoices, customers
-			WHERE InvoiceId = 1 AND invoices.CustomerId = customers.CustomerId"
+			WHERE InvoiceId = 1 AND invoices.CustomerId = customers.CustomerId;"
 SQLA[6] = '[["InvoiceId", "FirstName", "LastName", "Total"], [1, "Leonie", "K\u00F6hler", 1.98]]'
 
 # display invoice id, customer first name and last  name, and support representative first name and last name for invoice id 1, and not using the JOIN keyword
@@ -74,7 +74,7 @@ SQLA[10] = '[["FirstName", "LastName", "COUNT(*)"], ["Steve", "Johnson", 18]]'
 # display German customers last name and first name in descending order
 SQLQ[11] = "SELECT DISTINCT customers.LastName, customers.FirstName FROM customers
 			WHERE  customers.Country ='Germany' 
-			ORDER BY customers.LastName DESC"
+			ORDER BY customers.LastName DESC;"
 SQLA[11] = '[["LastName", "FirstName"], ["Zimmermann", "Fynn"], ["Schr\u00F6der", "Niklas"], ["Schneider", "Hannah"], ["K\u00F6hler", "Leonie"]]'
 
 # display name of country and number of customers who are either German or Canadian in ascending order 
@@ -96,7 +96,7 @@ SQLA[15] = '[["LastName", "FirstName", "Title", "Date"], ["King", "Robert", "IT 
 # display last and first names, job title and date hired of employees hired during 2002; 
 SQLQ[16] = "SELECT DISTINCT LastName, FirstName, Title,
 			strftime('%d/%m/%Y', HireDate) AS Date FROM employees
-			WHERE HireDate LIKE '%2002%'"
+			WHERE HireDate LIKE '%2002%';"
 SQLA[16] = '[["LastName", "FirstName", "Title", "Date"], ["Adams", "Andrew", "General Manager", "14/08/2002"], ["Edwards", "Nancy", "Sales Manager", "01/05/2002"], ["Peacock", "Jane", "Sales Support Agent", "01/04/2002"]]' #Additional formatting required to match up output with answer
 
 # display employee first, last names and job title who have other employees reporting to them 
@@ -120,7 +120,7 @@ SQLQ[21] = "SELECT albums.ArtistId, artists.Name, COUNT(albums.ArtistId) as 'Num
 			INNER JOIN artists ON albums.ArtistId = artists.ArtistId
 			GROUP BY albums.ArtistId
 			HAVING COUNT(albums.ArtistId) > 10
-			ORDER BY albums.ArtistId"
+			ORDER BY albums.ArtistId;"
 SQLA[21] = '[["ArtistId", "Name", "Number of Albums"], [22, "Led Zeppelin", 14], [58, "Deep Purple", 11], [90, "Iron Maiden", 21]]'
 
 # display album id and title produced by AC/DC using a nested query.
@@ -143,7 +143,7 @@ SQLA[25] = '[["TrackId"], [52], [2005], [2007], [2010], [2194], [2198], [2206], 
 SQLQ[26] = "SELECT playlist_track.PlaylistId, playlist_track.TrackId, tracks.Name FROM playlist_track
 			INNER JOIN tracks ON playlist_track.TrackId = tracks.TrackId
 			GROUP BY playlist_track.PlaylistId
-			HAVING COUNT(playlist_track.PlaylistId) = 1"
+			HAVING COUNT(playlist_track.PlaylistId) = 1;"
 SQLA[26] = '[["PlaylistId", "TrackId", "Name"], [9, 3402, "Band Members Discuss Tracks from \"Revelations\""], [18, 597, "Now\'s The Time"]]'
 
 # display all artists id and their names, the number of albums produced containing the genre ‘Soundtrack’ using left joins only
